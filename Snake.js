@@ -1,5 +1,5 @@
 var scl = 20;
-var game_speed = 10;
+var game_speed = 20;
 
 function Snake(){
 	this.x = 0;
@@ -19,6 +19,19 @@ function Snake(){
     }
   }
 
+this.death = function(){
+  for (var i =0; i< this.tail.length; i++){
+    var pos = this.tail[i];
+    var d = dist(this.x, this.y, pos.x, pos.y);
+    if (d < 1){
+    	this.x = 0;
+    	this.y = 0;
+      this.total = 1;
+      this.tail = []
+    }
+  }
+}
+
   this.dir = function(x, y){
       this.xspeed = x;
       this.yspeed = y;
@@ -30,7 +43,7 @@ function Snake(){
           this.tail[i] = this.tail[i+1];
         }
       }
-      this.tail[this.total-1] = createVector(this.x, this.y);
+    this.tail[this.total-1] = createVector(this.x, this.y);
 
 		this.x = this.x + this.xspeed * game_speed;
 		this.y = this.y + this.yspeed * game_speed;

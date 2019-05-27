@@ -9,6 +9,10 @@ function setup(){
 	pickLotation();
 }
 
+function mousePressed(){
+	s.total ++;
+}
+
 function pickLotation(){
 	var cols = floor(width/scl);
 	var rows = floor(height/scl);
@@ -17,7 +21,8 @@ function pickLotation(){
 }
 
 function draw(){
-	background(51);
+	background(30);
+	s.death();
 	s.update();
 	s.show();
 	if(s.eat(food)){
