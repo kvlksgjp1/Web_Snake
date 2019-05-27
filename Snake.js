@@ -8,6 +8,9 @@ function Snake(){
 	this.yspeed = 0;
   this.total = 1;
   this.tail = [];
+	this.color_R = random(255);
+	this.color_G = random(255);
+	this.color_B = random(255);
 
   this.eat = function(pos) {
     var d = dist(this.x, this.y, pos.x, pos.y);
@@ -19,18 +22,25 @@ function Snake(){
     }
   }
 
-this.death = function(){
-  for (var i =0; i< this.tail.length; i++){
-    var pos = this.tail[i];
-    var d = dist(this.x, this.y, pos.x, pos.y);
-    if (d < 1){
-    	this.x = 0;
-    	this.y = 0;
-      this.total = 1;
-      this.tail = []
-    }
-  }
-}
+	this.death = function(){
+	  for (var i =0; i< this.tail.length; i++){
+	    var pos = this.tail[i];
+	    var d = dist(this.x, this.y, pos.x, pos.y);
+	    if (d < 1){
+	    	this.revive();
+	    }
+	  }
+	}
+
+	this.revive = function(){
+		this.x = 40;
+		this.y = 40;
+		this.total = 1;
+		this.tail = []
+		this.color_R = random(255);
+		this.color_G = random(255);
+		this.color_B = random(255);
+	}
 
   this.dir = function(x, y){
       this.xspeed = x;
@@ -54,7 +64,7 @@ this.death = function(){
 	}
 
 	this.show = function(){
-		fill(255);
+		fill(this.color_R, this.color_G, this.color_B);
     for (var i=0; i<this.tail.length; i++){
   		rect(this.tail[i].x, this.tail[i].y, 20, 20);
     }
