@@ -1,7 +1,7 @@
 var scl = 20;
-var game_speed = 20;
 
-function Snake(){
+function Snake(name){
+	this.name = name;
 	this.x = 0;
 	this.y = 0;
 	this.xspeed = 1;
@@ -55,8 +55,8 @@ function Snake(){
       }
     this.tail[this.total-1] = createVector(this.x, this.y);
 
-		this.x = this.x + this.xspeed * game_speed;
-		this.y = this.y + this.yspeed * game_speed;
+		this.x = this.x + this.xspeed * scl;
+		this.y = this.y + this.yspeed * scl;
 
     this.x = constrain(this.x, 0, width-scl);
     this.y = constrain(this.y, 0, height-scl);

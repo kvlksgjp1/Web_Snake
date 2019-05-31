@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<HTML>
+  <HEAD>
+    <script type="text/javascript">
+      function KeyDown(e){
+        var eventobj=window.event? event : e
+        if(eventobj.ctrlKey && eventobj.keyCode == 36){
+          alert("CTRL + HOME 누르셨습니다.")
+        }
+        document.write(eventobj.keyCode);
+        document.onkeydown=KeyDown;
+      }
+      document.onkeydown=KeyDown;
+    </script>
+  </HEAD>
+<BODY>
+
+CTRL키와 HOME키를 동시에 누르세요.
+</BODY>
+</HTML>

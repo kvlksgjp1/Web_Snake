@@ -1,16 +1,39 @@
-var s;
-var food;
-var scl = 20
+var scl = 20;
+var socket;
+var id = null;
 
 function setup(){
 	createCanvas(600, 600);
-	s = new Snake();
-	frameRate(10);
-	pickLotation();
+	socket = io();
+
+	socket.on('add_user', (msg) => {
+		if(id==null)
+			id = msg;
+	});
+
+	socket.on('game_update', (data) => {
+		background(90);
+
+			console.log(data);
+
+			for(var i=0; i<data.length; i++)
+			{
+				fill(data[i].color_R, data[i].color_G, data[i].color_B);
+					for(var j=0; j<data[i].tail.length; j++)
+							rect(data[i].tail[j].x, data[i].tail[j].y, 20, 20);
+			}
+
+			fill(random(255), random(255), random(255));
+			rect(data[0].food.x, data[0].food.y, scl, scl);
+	});
+
+
+	frameRate(60);
+
 }
 
 function mousePressed(){
-	s.total++;
+	//s.total++;
 }
 
 function pickLotation(){
@@ -20,26 +43,31 @@ function pickLotation(){
 	food.mult(scl);
 }
 
-function draw(){
-	background(30);
-	s.death();
-	s.update();
-	s.show();
-	if(s.eat(food)){
-		pickLotation();
-	}
-	fill(random(255), random(255), random(255));
-	rect(food.x, food.y, scl, scl);
+function myDraw(){
+		background(90);
+
+		fill(data.R, data.G, data.B);
+		rect(data.x, data.y, 20, 20);
+
+		fill(random(255), random(255), random(255));
+		rect(data.food.x, data.food.y, scl, scl);
 }
 
+function draw(){
+}
+
+
 function keyPressed() {
+
+	//socket.emit('left_button', 'hi2');
 	if (keyCode === UP_ARROW){
-		s.dir(0, -1);
+		socket.emit('up_button', id)
 	}else if(keyCode === DOWN_ARROW){
-		s.dir(0, 1);
+		socket.emit('down_button', id)
 	}else if(keyCode === RIGHT_ARROW){
-		s.dir(1, 0);
+		socket.emit('right_button', id)
 	}else if(keyCode === LEFT_ARROW){
-		s.dir(-1, 0);
+		socket.emit('left_button', id)
 	}
+
 }
